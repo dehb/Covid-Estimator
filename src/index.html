@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Covid19 Estimator</title>
+    <script src="./estimator2.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="left-pane">
+            <section id="formContainer" class="container">
+                <div class="welcome-text">
+                    <h2>Hello!!! </h2>
+                    <p id="infoText">Kindly Fill the form to get your estimate, it would be just a moment</p>
+                </div>
+                <form class="details-form">
+                    <div class="form-group">
+                        <h5 class="label">Region Name </h5>
+                        <input type="text" v-model="name" class="form-input" id="Name"
+                            placeholder="Enter your present region">
+                    </div>
+                    <div class="form-group">
+                        <h5 class="label">Average Daily Income</h5>
+                        <input type="number" v-model="avgDailyIncomeInUSD" class="form-input" id="Income"
+                            placeholder="Enter the average daily income in USD">
+                    </div>
+                    <div class="form-group">
+                        <h5 class="label">Average Income Population</h5>
+                        <input type="number" v-model="avgDailyIncomePopulation" class="form-input" id="incomePopulation"
+                            placeholder="Enter the average daily income population">
+                    </div>
+                    <div class="form-group">
+                        <label for="periodType">
+                            <h5 class="label">Select time to elapse type</h5>
+                        </label>
+                        <select v-model="periodType" class="form-input" id="periodType">
+                            <option value="days">Days</option>
+                            <option value="weeks">Weeks</option>
+                            <option value="months">Month</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h5 class="label">Time To Elapse</h5>
+                        <input type="number" v-model="timeToElapse" class="form-input" id="Time"
+                            placeholder="Enter the time to elapse">
+                    </div>
+                    <div class="form-group">
+                        <h5 class="label">Number of Reported Cases</h5>
+                        <input type="number" v-model="reportedCases" class="form-input" id="Cases"
+                            placeholder="Enter the number of reported cases">
+                    </div>
+                    <div class="form-group">
+                        <h5 class="label">Number of Hospital Beds </h5>
+                        <input type="number" v-model="totalHospitalBeds" class="form-input" id="Beds"
+                            placeholder="Enter number of hospital beds">
+                    </div>
+                    <div class="form-group">
+                        <div class="asButton" v-on:click="getData">
+                            <h3>Get estimates</h3>
+                        </div>
+                    </div>
+                </form>
+                <p class="Lmore"> Learn more about Covid-19</p>
+            </section>
+
+            <section id="resultContainer" class="container">
+                <div class="welcome-text">
+                    <h2>Hello!!! </h2>
+                    <p id="infoText">Thanks for your time, here are your estimates.</p>
+                </div>
+                <form class="details-form">
+                    <div class="solution-group">
+                        <h5 class="variables">Region Name : </h5>
+                        <h5> {{name}} </h5>
+
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Average Daily Income :</h5>
+                        <h5>{{avgDailyIncomeInUSD}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Average Income Population :</h5>
+                        <h5>{{avgDailyIncomePopulation}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Select time to elapse type :</h5>
+                        <h5>{{periodType}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Time To Elapse :</h5>
+                        <h5>{{timeToElapse}}</h5>
+                    </div>
+
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Reported Cases :</h5>
+                        <h5>{{reportedCases}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Hospital Beds :</h5>
+                        <h5>{{totalHospitalBeds}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of People Currently Infected :</h5>
+                        <h5>{{currentlyInfected}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Infections by Requested Time :</h5>
+                        <h5>{{infectionsByRequestedTime}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Severe Cases by Requested Time :</h5>
+                        <h5>{{severeCasesByRequestedTime}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Hospital Beds by requested Time :</h5>
+                        <h5>{{hospitalBedsByRequestedTime}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Cases for ICU by Requested Time :</h5>
+                        <h5>{{casesForICUByRequestedTime}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Number of Cases for Ventilator by Time :</h5>
+                        <h5>{{casesForVentilatorsByRequestedTime}}</h5>
+                    </div>
+                    <div class="solution-group">
+                        <h5 class="variables">Amount of Dollars in Flight :</h5>
+                        <h5>{{dollarsInFlight}}</h5>
+                    </div>
+                    <div class="form-group">
+                        <button class="asButton" type="submit" v-on:click="backToForm">
+                            <h3>Go back to form</h3>
+                        </button>
+                    </div>
+                </form>
+                <p class="Lmore"> Learn more about Covid-19</p>
+            </section>
+        </div>
+
+        <div class="right-pane">
+            <div class="container">
+                <div class="welcome-text">
+                    <h1 id="infoTopic">COVID-19 ESTIMATOR</h1>
+                    <p>We help you estimate important variables where the Covid-19 infection is concerned
+                    </p>
+                </div>
+                <h3> Some important facts about Covid-19</h3>
+                <ul class="nav-listFact">
+                    <li class="list-itemFact">80% of people experience light weight symptoms with covid-19</li>
+                    <li class="list-itemFact">the mortality rate of Covid-19 is relatively low.</li>
+                </ul>
+                <ul class="nav-list">
+                    <li class="list-item">Emergency Contacts</li>
+                    <li class="list-item">Prevention tips</li>
+                </ul>
+                <p class="more"> Covid-19 is real. Stay Safe!!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                avgDailyIncomeInUSD: '',
+                avgDailyIncomePopulation: '',
+                periodType: '',
+                timeToElapse: '',
+                reportedCases: '',
+                totalHospitalBeds: '',
+                currentlyInfected: '',
+                infectionsByRequestedTime: '',
+                severeCasesByRequestedTime: '',
+                hospitalBedsByRequestedTime: '',
+                casesForICUByRequestedTime: '',
+                casesForVentilatorsByRequestedTime: '',
+                dollarsInFlight: ''
+            },
+            methods: {
+                getData() {
+                    var data = this;
+                    var x = document.getElementById('formContainer');
+                    x.style.display = 'none';
+                    document.getElementById('resultContainer').style.display = 'block';
+                    // covid19ImpactEstimator(data);
+                    var total = calculateImpact(10, data);
+                    console.log(total);
+                    this.currentlyInfected = total.currentlyInfected;
+                   this.infectionsByRequestedTime = total.infectionsByRequestedTime;
+                   this.severeCasesByRequestedTime = total.severeCasesByRequestedTime;
+                this.hospitalBedsByRequestedTime = total.hospitalBedsByRequestedTime;
+                this.casesForICUByRequestedTime = total.casesForICUByRequestedTime;
+                this.casesForVentilatorsByRequestedTime = total.casesForVentilatorsByRequestedTime;
+                this.dollarsInFlight = total.dollarsInFlight;
+                },
+                backToForm() {
+                    // var x = document.getElementById('formContainer');
+                    // x.style.display = 'block';
+                    // document.getElementById('resultContainer').style.display = 'none';
+                }
+            },
+        })
+    </script>
+    <!-- <script src="./estimator.js" type="module"></script> -->
+    <!-- <script type="module">
+        import { covid19ImpactEstimator } from "./estimator.js";
+    </script> -->
+</body>
+
+</html>
